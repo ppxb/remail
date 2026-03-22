@@ -1,10 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
 
 export const Route = createFileRoute('/')({
   component: Home,
 })
 
 function Home() {
+  const [error, setError] = useState(false)
+
+  if (error)
+    throw new Error('Test error')
+
   return (
     <main className="min-h-dvh w-screen flex items-center justify-center flex-col gap-y-4 p-4">
       <img
@@ -24,6 +30,7 @@ function Home() {
       >
         Docs
       </a>
+      <button onClick={() => setError(true)}>Handle Error</button>
     </main>
   )
 }
