@@ -1,0 +1,47 @@
+import type { ErrorComponentProps } from '@tanstack/react-router'
+import { ErrorComponent, Link, rootRouteId, useMatch, useRouter } from '@tanstack/react-router'
+
+export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
+  const router = useRouter()
+  const isRoot = useMatch({
+    strict: false,
+    select: state => state.id === rootRouteId,
+  })
+
+  return (
+    <div className="min-w-0 flex flex-col flex-1 p-4 items-center justify-center gap-6">
+      <ErrorComponent error={error} />
+      <div className="flex items-center flex-wrap gap-2">
+        <button
+          onClick={() => {
+            router.invalidate()
+          }}
+          className="px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold"
+        >
+          Try Again
+        </button>
+        {isRoot
+          ? (
+              <Link
+                to="/"
+                className="px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold"
+              >
+                Home
+              </Link>
+            )
+          : (
+              <Link
+                to="/"
+                className="px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded-sm text-white uppercase font-extrabold"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.history.back()
+                }}
+              >
+                Go Back
+              </Link>
+            )}
+      </div>
+    </div>
+  )
+}
