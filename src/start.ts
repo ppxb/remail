@@ -2,8 +2,8 @@ import { createMiddleware, createStart } from '@tanstack/react-start'
 import { getRequiredPermission, hasPermission, isPublicApiPath } from '@/server/auth/permissions'
 import { resolveRequestAuth } from '@/server/auth/resolve-auth'
 import { createRequestContext } from '@/server/context'
+import { forbidden, unauthorized } from '@/server/http/errors'
 import { jsonFromHttpError } from '@/server/http/json'
-import { forbidden, unauthorized } from './server/http/errors'
 
 const requestContextMiddleware = createMiddleware({ type: 'request' })
   .server(
