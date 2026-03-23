@@ -18,6 +18,7 @@
 # production
 /build
 /dist
+.tanstack
 
 # misc
 .DS_Store
